@@ -20,8 +20,9 @@ jobs:
         run: python -c "import sys; print(sys.version)"
       - name: Save Python version to file
         run: |
-          echo "Python ${{ matrix.python-version }}" >> file/result.txt
-      - uses: actions/upload-artifact@v3
+          echo "Python ${{ matrix.python-version }}" > file/result_${{ matrix.python-version }}.txt
+      - name: Upload Python version artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
-          path: file/result.txt
+          name: python-version-${{ matrix.python-version }}
+          path: file/result_${{ matrix.python-version }}.txt
